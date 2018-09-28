@@ -1,0 +1,47 @@
+.ical-app {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 40% auto;
+  grid-template-rows: 50px 1fr 1fr 50px;
+}
+
+@media screen and (orientation: landscape) {
+  .ical-app {
+    grid-template-areas:
+      "header  header"
+      "redbox  bluebox"
+      "redbox  bluebox"
+      "redbox  greybox"
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .ical-app {
+    grid-template-areas:
+      "header  header"
+      "redbox  redbox"
+      "bluebox bluebox"
+      "greybox greybox"
+  }
+}
+
+.ical-header {
+  background-color: yellow;
+  grid-area: header;
+}
+
+.ical-redbox {
+  background-color: red;
+  grid-area: redbox;
+}
+
+.ical-bluebox {
+  background-color: blue;
+  grid-area: bluebox;
+}
+
+.ical-greybox {
+  background-color: grey;
+  grid-area: greybox;
+}
