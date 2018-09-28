@@ -1,19 +1,49 @@
 {
   "name": "ical-frontend",
   "version": "0.1.0",
+  "description": "Frontend for ical",
   "private": true,
-  "dependencies": {
-    "ajv": "^6.0.0",
-    "moment": "^2.22.2",
-    "react": "^15.5.0",
-    "react-agenda": "0.0.7",
-    "react-dom": "^15.5.0",
-    "react-scripts": "1.1.5"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --config webpack.config.dev.js",
+    "build": "webpack --mode production --config webpack.config.js",
+    "lint": "standard --fix",
+    "flow": "flow check",
+    "test" : "npm run lint && npm run flow"
+  },
+  "author": "iola",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "babel-preset-flow": "^6.23.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "flow-bin": "^0.81.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react-hot-loader": "^4.3.11",
+    "standard": "^12.0.1",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "flowtype"
+    ],
+    "ignore": [
+      "flow-typed/*.js"
+    ]
   }
 }

@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
-//import '../style/Ical-app.css';
+// @flow
 
-class IcalRedbox extends Component {
-  render() {
+import React, { Component } from 'react'
+// import '../style/Ical-app.css';
+
+type Props = {
+}
+
+class IcalRedbox extends Component<Props> {
+  render () {
     return (
-      <div className="ical-redbox">
-      </div>
-    );
+      <div className='ical-redbox' />
+    )
   }
 }
 
-export default IcalRedbox;
+export default IcalRedbox
