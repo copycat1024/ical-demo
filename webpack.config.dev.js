@@ -8,7 +8,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const directory = fs.realpathSync(process.cwd())
 const resolve = (relativePath) => path.resolve(directory, relativePath)
-console.log(directory)
 
 module.exports = {
   mode: 'development',

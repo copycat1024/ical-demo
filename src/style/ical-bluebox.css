@@ -1,3 +1,4 @@
 .ical-bluebox {
-  overflow-y: scroll;
+  background: none;
+  overflow: scroll;
 }

@@ -3,8 +3,12 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './style/index.css'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
 import IcalApp from './components/IcalApp'
+import IcalReducer from './reducers'
+import './style/index.css'
 
 function createRoot (): HTMLElement {
   let el = document.createElement('div')
@@ -13,11 +17,19 @@ function createRoot (): HTMLElement {
 }
 
 function render () {
+  const store = createStore(IcalReducer)
+
   let root: HTMLElement | null = document.getElementById('root')
   if (root === null) {
     root = createRoot()
   }
-  ReactDOM.render(<IcalApp />, root)
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <IcalApp />
+    </Provider>,
+    root
+  )
 }
 
 render()

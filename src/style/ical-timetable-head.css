@@ -1,0 +1,30 @@
+.ical-timetable-head {
+  z-index: 2;
+  background-color: white;
+  text-align: center;
+  border: 1px grey;
+}
+
+.ical-timetable-head-corner {
+  border-style: none solid solid none;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.ical-timetable-head-row {
+  border-style: none solid solid none;
+  position: sticky;
+  left: 0;
+}
+
+.ical-timetable-head-column {
+  border-style: none solid solid none;
+  position: sticky;
+  top: 0;
+}
+
+.ical-timetable-head-fill {
+  z-index: -1;
+  border-style: none solid solid none;
+}
