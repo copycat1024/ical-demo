@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 40% auto;
+  grid-template-columns: 40% 60%;
   grid-template-rows: 50px 1fr 1fr 50px;
 }
 
@@ -12,7 +12,7 @@
       "header  header"
       "redbox  bluebox"
       "redbox  bluebox"
-      "redbox  greybox"
+      "greybox bluebox"
   }
 }
 
@@ -38,9 +38,9 @@
 
 .ical-bluebox {
   grid-area: bluebox;
+  margin-left: 5px;
 }
 
 .ical-greybox {
-  background-color: grey;
   grid-area: greybox;
 }

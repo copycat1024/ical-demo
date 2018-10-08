@@ -5,7 +5,7 @@ import IcalHeader from './IcalHeader'
 import IcalBluebox from './IcalBluebox'
 import IcalRedbox from './IcalRedbox'
 import IcalGreybox from './IcalGreybox'
-import '../style/ical-app.css'
+import '../style/ical-app.less'
 
 type Props = {
 }

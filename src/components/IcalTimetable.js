@@ -6,11 +6,28 @@ import { addDate, dateToString, timeToString, range, dayDiff } from './../helper
 import IcalTimetableHead from './IcalTimetableHead'
 import type { TimetableHead } from './IcalTimetableHead'
 import { mapTimetableProps } from './../containers/IcalTimetable'
-import type { IcalTimetableState } from './../reducers/IcalTimetable'
-import '../style/ical-timetable.css'
+import '../style/ical-timetable.less'
 import IcalTimetableItem from './IcalTimetableItem'
 
-export type IcalTimetableProps = IcalTimetableState
+export type IcalEvent = {
+  course: string,
+  location: string,
+  teacher: string,
+  end: Date,
+  start: Date
+}
+
+export type IcalPeriod = {
+  start: Date,
+  end: Date
+}
+
+export type IcalTimetableProps = {
+  week: Date, // date of the sunday before the week
+  dayNum: number,
+  periods: IcalPeriod[],
+  events: IcalEvent[]
+}
 
 class IcalTimetable extends Component<IcalTimetableProps> {
   _getColumnHeads (): TimetableHead[] {
@@ -86,8 +103,8 @@ class IcalTimetable extends Component<IcalTimetableProps> {
       data: item
     })).filter(item => (item.dateSlot > 0 && item.dateSlot < dayNum)).map(item => ({
       dateSlot: item.dateSlot,
-      teacher: item.data.description,
-      course: item.data.summary,
+      teacher: item.data.teacher,
+      course: item.data.course,
       location: item.data.location,
       ...this._getTimeSlot(item.data, periodSlots)
     }))
@@ -121,21 +138,26 @@ class IcalTimetable extends Component<IcalTimetableProps> {
     let events = this._getEvents()
 
     return (
-      <div className='ical-timetable' style={style}>
-        { heads.map((item, key) =>
-          <IcalTimetableHead
-            key={key}
-            item={item}
-          />
-        )}
-        { events.map((item, key) =>
-          <IcalTimetableItem
-            key={key}
-            item={item}
-          />
-        )}
-
+      <div className='ical-timetable'>
+        <div className='ical-timetable-navbar'>as</div>
+        <div className='ical-timetable-body'>
+          <div className='ical-timetable-content' style={style}>
+            { heads.map((item, key) =>
+              <IcalTimetableHead
+                key={key}
+                item={item}
+              />
+            )}
+            { events.map((item, key) =>
+              <IcalTimetableItem
+                key={key}
+                item={item}
+              />
+            )}
+          </div>
+        </div>
       </div>
+
     )
   }
 }

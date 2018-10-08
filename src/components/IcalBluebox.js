@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-import '../style/ical-bluebox.css'
+import '../style/ical-bluebox.less'
 
 import IcalTimetable from './IcalTimetable'
 

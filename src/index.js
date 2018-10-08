@@ -8,7 +8,7 @@ import { createStore } from 'redux'
 
 import IcalApp from './components/IcalApp'
 import IcalReducer from './reducers'
-import './style/index.css'
+import './style/index.less'
 
 function createRoot (): HTMLElement {
   let el = document.createElement('div')

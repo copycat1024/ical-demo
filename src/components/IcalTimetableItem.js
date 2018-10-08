@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-import '../style/ical-timetable-item.css'
+import '../style/ical-timetable-item.less'
 
 type TimetableItem = {
   course: string,

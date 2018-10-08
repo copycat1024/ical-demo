@@ -1,30 +1,33 @@
+@import "index";
+
 .ical-timetable-head {
-  z-index: 2;
-  background-color: white;
-  text-align: center;
+  background-color: #8789d3;
   border: 1px grey;
+  text-align: center;
+  z-index: 2;
 }
 
 .ical-timetable-head-corner {
-  border-style: none solid solid none;
+  border-style: solid;
   position: sticky;
-  top: 0;
   left: 0;
+  top: 0;
 }
 
 .ical-timetable-head-row {
-  border-style: none solid solid none;
+  border-style: none solid solid solid;
   position: sticky;
   left: 0;
 }
 
 .ical-timetable-head-column {
-  border-style: none solid solid none;
+  border-style: solid solid solid none;
   position: sticky;
   top: 0;
 }
 
 .ical-timetable-head-fill {
-  z-index: -1;
+  background-color: white;
   border-style: none solid solid none;
+  z-index: -1;
 }

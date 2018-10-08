@@ -2,13 +2,13 @@
 
 import React, { Component } from 'react'
 import { addBr } from './../helper'
-import '../style/ical-timetable-head.css'
+import '../style/ical-timetable-head.less'
 
 export type TimetableHead = {
   headType: 'column' | 'row' | 'corner' | 'fill',
   position: number,
   position2: ?number,
-  text: string
+  text: ?string
 }
 
 type Props = {
@@ -18,7 +18,6 @@ type Props = {
 class IcalTimetableHead extends Component<Props> {
   _getInlineStyle () {
     let { headType, position, position2 } = this.props.item
-    console.log(headType)
     if (headType === 'fill' && position2 != null) {
       return {
         gridRowStart: position + 1,
@@ -56,7 +55,7 @@ class IcalTimetableHead extends Component<Props> {
     let style = this._getInlineStyle()
     return (
       <div className={`ical-timetable-head-${headType} ical-timetable-head`} style={style}>
-        <p>{addBr(text)}</p>
+        {text != null ? <p>{addBr(text)}</p> : null }
       </div>
     )
   }
