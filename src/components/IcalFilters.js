@@ -2,63 +2,45 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { mapFiltersProps } from '../containers/IcalFilters'
+import { mapFiltersProps, mapFiltersDispatch } from '../containers/IcalFilters'
 import IcalCalendarBox from './IcalCalendarBox'
 import '../style/ical-filters.less'
+import type { IcalItem, IcalFilter } from '../helper/IcalFilters'
+import type { IcalFilterState } from '../reducers/IcalFilters'
 
-export type IcalItemType = 'group' | 'course' | 'teacher' | 'room' | 'empty'
-export type IcalConditionType = 'equal' | 'not_equal' | 'begin_with' | 'end_with' | 'contain' | 'not_contain' | 'custom'
-
-type IcalGroup = {
-  code: string
-}
-
-type IcalCourse = {
-  name: string,
-  credit: number,
-  language: string
-}
-
-type IcalTeacher = {
-  name: string,
-  code: string
-}
-
-type IcalRoom = {
-  name: string
-}
-
-export type IcalItem = {
-  type: IcalItemType,
-  key: number,
-}
-
-export type IcalFilter = {
-  type: IcalItemType,
-  value: string,
-  condition: IcalConditionType,
-}
-
-export type IcalInfo = {
-  group: { [string]: IcalGroup },
-  course: { [string]: IcalCourse },
-  teacher: { [string]: IcalTeacher },
-  room: { [string]: IcalRoom },
-}
-
-export type IcalCalendar = {
-  item: IcalItem,
-  filters: IcalFilter[]
+export type IcalFiltersDispatch = {
+  addCalendarDispatch: () => void,
+  editCalendarDispatch: (key: number, item: IcalItem) => void,
+  deleteCalendarDispatch: (key: number) => void,
+  addFilterDispatch: (calKey: number) => void,
+  editFilterDispatch: (calKey: number, key: number, item: IcalFilter) => void,
+  deleteFilterDispatch: (calKey: number, key: number) => void,
 }
 
 export type IcalFiltersProps = {
-  calendars: IcalCalendar[],
-  info: IcalInfo
+  state: IcalFilterState,
+  dispatch: IcalFiltersDispatch
 }
 
 class IcalFilters extends Component<IcalFiltersProps> {
   render () {
-    const { calendars, info } = this.props
+    if (this.props.state == null) {
+      return null
+    }
+    if (this.props.dispatch == null) {
+      return null
+    }
+
+    const { calendars, info } = this.props.state
+    const {
+      addCalendarDispatch,
+      deleteCalendarDispatch,
+      editCalendarDispatch,
+      addFilterDispatch,
+      editFilterDispatch,
+      deleteFilterDispatch
+    } = this.props.dispatch
+
     return (
       <div className='ical-filter-container'>
         <div className='ical-filter-box'>
@@ -67,9 +49,16 @@ class IcalFilters extends Component<IcalFiltersProps> {
               calendar={calendar}
               info={info}
               key={key}
+              onDelete={() => { deleteCalendarDispatch(key) }}
+              onEdit={(item) => { editCalendarDispatch(key, item) }}
+              onAddFilter={() => { addFilterDispatch(key) }}
+              onEditFilter={(filterKey, filter) => { editFilterDispatch(key, filterKey, filter) }}
+              onDeleteFilter={(filterKey) => { deleteFilterDispatch(key, filterKey) }}
             />
           })}
-          <div className='ical-add-calendar text-wrap'>
+          <div className='ical-add-calendar text-wrap' onClick={() => {
+            addCalendarDispatch()
+          }}>
             <p>Add calendar</p>
           </div>
         </div>
@@ -78,4 +67,4 @@ class IcalFilters extends Component<IcalFiltersProps> {
   }
 }
 
-export default connect(mapFiltersProps)(IcalFilters)
+export default connect(mapFiltersProps, mapFiltersDispatch)(IcalFilters)

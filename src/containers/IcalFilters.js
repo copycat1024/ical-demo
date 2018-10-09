@@ -1,56 +1,44 @@
 // @flow
 
+import type { Dispatch } from 'redux'
 import type { IcalState } from './../reducers'
-import type { IcalFiltersProps } from './../components/IcalFilters'
+import type { IcalItem, IcalFilter } from './../helper/IcalFilters'
+import {
+  addCalendar,
+  deleteCalendar,
+  editCalendar,
+  addFilter,
+  editFilter,
+  deleteFilter
+} from './../dispatchers/IcalFilters'
 
-const calendarMU = {
-  item: {
-    type: 'group',
-    key: 3
-  },
-  filters: [
-    {
-      type: 'group',
-      value: 'I-IT',
-      condition: 'contain'
-    }
-  ]
-}
-
-const groupMU = {
-  '1': {
-    code: 'I-IT-1N1'
-  },
-  '2': {
-    code: 'I-IT-1N2'
-  },
-  '3': {
-    code: 'I-IT-1N3'
-  },
-  '4': {
-    code: 'I-IT-1N4'
+export function mapFiltersProps (state: IcalState): any {
+  return {
+    state: state.filters
   }
 }
 
-const teacherMU = {
-}
-
-const roomMU = {
-}
-
-const courseMU = {
-}
-
-export function mapFiltersProps (state: IcalState): IcalFiltersProps {
+export function mapFiltersDispatch (dispatch: Dispatch): any {
   return {
-    calendars: [
-      calendarMU
-    ],
-    info: {
-      course: courseMU,
-      group: groupMU,
-      teacher: teacherMU,
-      room: roomMU
+    dispatch: {
+      addCalendarDispatch: () => {
+        dispatch(addCalendar())
+      },
+      editCalendarDispatch: (key: number, item: IcalItem) => {
+        dispatch(editCalendar(key, item))
+      },
+      deleteCalendarDispatch: (key: number) => {
+        dispatch(deleteCalendar(key))
+      },
+      addFilterDispatch: (calKey: number) => {
+        dispatch(addFilter(calKey))
+      },
+      editFilterDispatch: (calKey: number, key: number, item: IcalFilter) => {
+        dispatch(editFilter(calKey, key, item))
+      },
+      deleteFilterDispatch: (calKey: number, key: number) => {
+        dispatch(deleteFilter(calKey, key))
+      }
     }
   }
 }

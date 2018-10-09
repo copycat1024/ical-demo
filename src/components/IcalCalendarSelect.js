@@ -15,7 +15,8 @@ type Props = {
   posX: number,
   posY: number,
   options: IcalOptionsType,
-  value: string
+  value: string,
+  onEdit: (string) => void
 }
 
 const selectStyleObj = (x, y) => ({
@@ -39,7 +40,6 @@ const selectStyleObj = (x, y) => ({
       borderColor: 'grey',
       boxShadow: null
     }
-    console.log(res)
     return res
   }
 })
@@ -60,13 +60,13 @@ class IcalCalendarSelect extends Component<Props> {
   }
 
   render () {
-    const { posX, posY, options, value } = this.props
+    const { posX, posY, options, value, onEdit } = this.props
     return (
       <Select
         options={this._parseOptions(options)}
         value={this._parseValue(options, value)}
         styles={selectStyleObj(posX, posY)}
-        classNamePrefix='a'
+        onChange={(obj, action) => { onEdit(obj.value) }}
       />
     )
   }

@@ -1,43 +1,56 @@
 // @flow
-/* eslint */
+/* global SyntheticEvent, HTMLInputElement */
 
 import React, { Component, Fragment } from 'react'
 import IcalCalendarSelect from './IcalCalendarSelect'
 import { gotoXY } from '../helper'
-import type { IcalFilter, IcalInfo } from './IcalFilters'
-
-const IcalItemTypeMap = {
-  'group': 'Group',
-  'course': 'Course',
-  'teacher': 'Teacher',
-  'room': 'Room',
-  'empty': ''
-}
-const IcalConditionTypeMap = {
-  'equal': 'Equal to',
-  'not_equal': 'Not equal to',
-  'begin_with': 'Begin with',
-  'end_with': 'End with',
-  'contain': 'Contain',
-  'not_contain': 'Not contain',
-  'custom': 'Custom'
-}
+import type { IcalFilter, IcalInfo } from '../helper/IcalFilters'
+import {
+  IcalItemTypeMap,
+  IcalConditionTypeMap,
+  strToItemType,
+  strToConditionType
+} from '../helper/IcalFilters'
 
 type Props = {
   filter: IcalFilter,
   info: IcalInfo,
-  order: number
+  order: number,
+  onEdit: (filter: IcalFilter) => void,
+  onDelete: () => void
 }
 
-type EventHandler<E = Event> = (e: E) => void;
-
 class IcalCalendarFilter extends Component<Props> {
-  _onValueChange (e: EventHandler<>) {
-    console.log(e.target.value)
+  _onChangeType (type: string) {
+    const { condition, value } = this.props.filter
+    this.props.onEdit({
+      type: strToItemType(type),
+      condition: condition,
+      value: value
+    })
+  }
+
+  _onChangeCondition (condition: string) {
+    const { type, value } = this.props.filter
+    this.props.onEdit({
+      type: type,
+      condition: strToConditionType(condition),
+      value: value
+    })
+  }
+
+  _onChangeValue (e: SyntheticEvent<HTMLInputElement>) {
+    const { type, condition } = this.props.filter
+    const { value } = e.currentTarget
+    this.props.onEdit({
+      type: type,
+      condition: condition,
+      value: value
+    })
   }
 
   render () {
-    const { filter, order } = this.props
+    const { filter, order, onDelete } = this.props
     const base = order * 3 + 2
     return (
       <Fragment>
@@ -52,8 +65,14 @@ class IcalCalendarFilter extends Component<Props> {
           posY={base}
           options={IcalItemTypeMap}
           value={filter.type}
+          onEdit={value => this._onChangeType(value)}
         />
-        <div style={gotoXY(4, base)} className='ical-calendar-delete' value={filter.value}>
+        <div
+          style={gotoXY(4, base)}
+          className='ical-calendar-delete'
+          value={filter.value}
+          onClick={() => onDelete()}
+        >
           <p>X</p>
         </div>
         <div style={gotoXY(2, base + 1)} className='ical-calendar-caption'>
@@ -64,6 +83,7 @@ class IcalCalendarFilter extends Component<Props> {
           posY={base + 1}
           options={IcalConditionTypeMap}
           value={filter.condition}
+          onEdit={value => this._onChangeCondition(value)}
         />
         <div style={gotoXY(2, base + 2)} className='ical-calendar-caption'>
           <p>Text:</p>
@@ -73,7 +93,7 @@ class IcalCalendarFilter extends Component<Props> {
           className='ical-calendar-input'
           style={gotoXY(3, base + 2)}
           value={filter.value}
-          onChange={this._onValueChange}
+          onChange={e => this._onChangeValue(e)}
         />
       </Fragment>
     )
