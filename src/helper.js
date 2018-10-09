@@ -36,3 +36,12 @@ export function dayDiff (d1: Date, d2: Date) {
 export function range (size:number, startAt:number = 0): number[] {
   return [...Array(size).keys()].map(i => i + startAt)
 }
+
+export function gotoXY (x: number, y: number, w:?number = 1, h:?number = 1) {
+  return {
+    gridRowStart: y,
+    gridRowEnd: y + h,
+    gridColumnStart: x,
+    gridColumnEnd: x + w
+  }
+}

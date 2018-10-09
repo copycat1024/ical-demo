@@ -4,7 +4,11 @@
     "eslint:recommended",
     "plugin:flowtype/recommended"
   ],
-  "plugins": [            
-      "flowtype"        
-  ]
+  "plugins": [
+      "flowtype"
+  ],
+  "rules": {
+    "flowtype/define-flow-type": 1,
+    "flowtype/use-flow-type": 1
+  }
 }
