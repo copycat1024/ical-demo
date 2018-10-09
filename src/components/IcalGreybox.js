@@ -10,6 +10,9 @@ class IcalGreybox extends Component<Props> {
   render () {
     return (
       <div className='ical-greybox'>
+        <div className='ical-greybox-button text-wrap'>
+          <p>Apply</p>
+        </div>
         { ['Google', 'Outlook'].map((text, key) =>
           <div className='ical-greybox-button text-wrap' key={key}>
             <p>{text}</p>

@@ -8,9 +8,24 @@
 
 .ical-timetable-navbar {
   background-color: white;
+  display: flex;
+  flex-flow: row nowrap;
   flex: 0 0 auto;
-  height: 25px;
+  height: 35px;
   width: inherit;
+}
+
+.ical-timetable-navbar > div {
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.ical-timetable-navbar-left, .ical-timetable-navbar-right {
+  width: 25%;
+}
+
+.ical-timetable-navbar-center {
+  width: 50%;
 }
 
 .ical-timetable-body {

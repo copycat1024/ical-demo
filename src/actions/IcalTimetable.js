@@ -2,11 +2,11 @@
 
 export const TIMETABLE_GOTO = 'TIMETABLE_GOTO'
 
-export type timetableGotoType = 'before' | 'after' | 'now'
+export type GotoWeekType = 'before' | 'after' | 'now'
 
-export type TimetableGotoAction = {
+export type GotoWeekAction = {
   type: 'TIMETABLE_GOTO' | '',
   destination: 'before' | 'after' | 'now'
 }
 
-export type TimetableActionType = TimetableGotoAction
+export type TimetableActionType = GotoWeekAction

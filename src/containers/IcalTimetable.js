@@ -1,7 +1,9 @@
 // @flow
 
+import { GotoWeek } from '../dispatchers/IcalTimetable'
+import type { Dispatch } from 'redux'
 import type { IcalState } from './../reducers'
-import type { IcalTimetableProps } from './../components/IcalTimetable'
+import type { GotoWeekType } from './../actions/IcalTimetable'
 
 const defaultPeriods = [
   '08:15-09:00', '09:00-09:45', '10:00-10:45', '11:00-11:45',
@@ -15,7 +17,7 @@ const defaultPeriods = [
   }
 })
 
-export function mapTimetableProps (state: IcalState): IcalTimetableProps {
+export function mapTimetableProps (state: IcalState): any {
   const cmp = (left, right) => left.start - right.start
   const { week, events } = state.timetable
   return {
@@ -23,5 +25,13 @@ export function mapTimetableProps (state: IcalState): IcalTimetableProps {
     dayNum: 6,
     periods: defaultPeriods,
     events: events.sort(cmp)
+  }
+}
+
+export function mapTimetableDispatch (dispatch: Dispatch): any {
+  return {
+    onWeekChange: (dest: GotoWeekType) => {
+      dispatch(GotoWeek(dest))
+    }
   }
 }
