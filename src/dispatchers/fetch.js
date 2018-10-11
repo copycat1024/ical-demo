@@ -1,19 +1,37 @@
 // @flow
 
 import fetch from 'cross-fetch'
+import type { FETCH_START, FETCH_END } from '../actions/fetch'
 import type { Dispatch } from 'redux'
-import { FetchStartType, FetchEndType } from '../actions/fetch'
 
-function fetchInfo
+function fetchStart (url) {
+  return {
+    type: FETCH_START,
+    request: {
+      url: url
+    }
+  }
+}
 
-export function fetchUrl (url: string, data: any) {
+function fetchEnd (url, data) {
+  return {
+    type: FETCH_END,
+    request: {
+      url: url
+    },
+    response: {
+      data: data
+    }
+  }
+}
+
+export function fetchUrl (url: string) {
   return (dispatch: Dispatch) => {
-    dispatch(requestBucket(bucket))
-    let url = bucketConfig[bucket].url
+    dispatch(fetchStart(url))
     return fetch(url)
       .then(response => response.json())
-      .then((json: dataItem) => {
-        dispatch(receiveBucket(bucket, json))
+      .then((json: any) => {
+        dispatch(fetchEnd(url, json))
       }, err => {
         console.log(err)
       })
