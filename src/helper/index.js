@@ -2,8 +2,10 @@
 
 import React, { Fragment } from 'react'
 import type { Node } from 'react'
+import { tz } from 'moment-timezone'
 
-const pad = (n) => ('0' + n).slice(-2)
+// export const zone = 'Europe/Helsinki'
+export const zone = 'Etc/GMT-3'
 
 export function addBr (text: string): Node {
   return text.split('\n').map((item, key) =>
@@ -22,11 +24,11 @@ export function getSunday (d: Date): Date {
 }
 
 export function dateToString (d: Date): string {
-  return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()}`
+  return tz(d, zone).format('DD.MM.YYYY')
 }
 
 export function timeToString (d: Date): string {
-  return `${pad(d.getHours())}:${pad(d.getMinutes())}`
+  return tz(d, zone).format('hh:mm')
 }
 
 export function dayDiff (d1: Date, d2: Date) {

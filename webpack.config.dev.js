@@ -70,6 +70,14 @@ module.exports = {
     port: 2401,
     host: '0.0.0.0',
     contentBase: resolve('./build'),
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': {
+        target: 'http://ical.cciola.site',
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   }
 }

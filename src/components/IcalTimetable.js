@@ -100,10 +100,12 @@ class IcalTimetable extends Component<IcalTimetableProps> {
   _getEvents () {
     const { events, week, dayNum } = this.props
     const { periods } = this.props
-    var periodSlots = {}
-    periodSlots.start = []
-    periodSlots.end = []
+    var periodSlots = {
+      start: [],
+      end: []
+    }
     periods.map(item => {
+      console.log(timeToString(item.start))
       periodSlots.start.push(timeToString(item.start))
       periodSlots.end.push(timeToString(item.end))
     })
@@ -116,7 +118,7 @@ class IcalTimetable extends Component<IcalTimetableProps> {
       course: item.data.course,
       location: item.data.location,
       ...this._getTimeSlot(item.data, periodSlots),
-      dbg: [ timeToString(item.data.start), timeToString(item.data.end) ]
+      dbg: [ timeToString(item.data.start), item.data.start ]
     }))
   }
 
