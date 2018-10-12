@@ -13,7 +13,6 @@ const defaultPeriods = [
   '15:30-16:15', '16:30-17:15', '17:15-18:00'
 ].map(item => {
   let a = item.split('-')
-  console.log(zone)
   return {
     start: tz(a[0], 'hh:mm', zone).toDate(),
     end: tz(a[1], 'hh:mm', zone).toDate()

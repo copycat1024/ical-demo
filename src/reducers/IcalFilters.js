@@ -9,6 +9,11 @@ import {
   DELETE_FILTER
 } from '../actions/IcalFilters'
 
+import {
+  FETCH_END,
+  FETCH_INFO
+} from '../actions/fetch'
+
 import type { IcalActionType } from './../actions'
 import type { IcalCalendar, IcalInfo } from '../helper/IcalFilters'
 
@@ -190,6 +195,12 @@ export default function (state: IcalFilterState = IcalFilterDefault(), action: I
           ...state.calendars.slice(calendarKey + 1)
         ]
       }
+    }
+    case FETCH_END: {
+      const { request, response } = action
+      console.log(FETCH_INFO)
+      console.log(request, response)
+      return state
     }
     default:
       return state

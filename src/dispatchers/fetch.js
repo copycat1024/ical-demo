@@ -1,7 +1,13 @@
 // @flow
 
 import fetch from 'cross-fetch'
-import type { FETCH_START, FETCH_END } from '../actions/fetch'
+
+import {
+  FETCH_START,
+  FETCH_END,
+  FETCH_INFO
+} from '../actions/fetch'
+
 import type { Dispatch } from 'redux'
 
 function fetchStart (url) {
@@ -20,6 +26,7 @@ function fetchEnd (url, data) {
       url: url
     },
     response: {
+      type: FETCH_INFO,
       data: data
     }
   }

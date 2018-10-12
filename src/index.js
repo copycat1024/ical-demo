@@ -4,11 +4,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
 import IcalApp from './components/IcalApp'
 import IcalReducer from './reducers'
 import './style/index.less'
+import init from './init'
 
 function createRoot (): HTMLElement {
   let el = document.createElement('div')
@@ -17,7 +19,11 @@ function createRoot (): HTMLElement {
 }
 
 function render () {
-  const store = createStore(IcalReducer)
+  const store = createStore(
+    IcalReducer,
+    applyMiddleware(thunk)
+  )
+  init(store)
 
   let root: HTMLElement | null = document.getElementById('root')
   if (root === null) {

@@ -105,7 +105,6 @@ class IcalTimetable extends Component<IcalTimetableProps> {
       end: []
     }
     periods.map(item => {
-      console.log(timeToString(item.start))
       periodSlots.start.push(timeToString(item.start))
       periodSlots.end.push(timeToString(item.end))
     })
