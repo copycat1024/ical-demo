@@ -4,8 +4,7 @@ import fetch from 'cross-fetch'
 
 import {
   FETCH_START,
-  FETCH_END,
-  FETCH_INFO
+  FETCH_END
 } from '../actions/fetch'
 
 import type { Dispatch } from 'redux'
@@ -19,28 +18,30 @@ function fetchStart (url) {
   }
 }
 
-function fetchEnd (url, data) {
+function fetchEnd (url, data, type) {
   return {
     type: FETCH_END,
     request: {
       url: url
     },
     response: {
-      type: FETCH_INFO,
+      type: type,
       data: data
     }
   }
 }
 
-export function fetchUrl (url: string) {
+export function fetchUrl (url: string, attr) {
   return (dispatch: Dispatch) => {
     dispatch(fetchStart(url))
-    return fetch(url)
-      .then(response => response.json())
-      .then((json: any) => {
-        dispatch(fetchEnd(url, json))
-      }, err => {
+    let res = fetch(url)
+      .then(response => response.json(), err => {
         console.log(err)
       })
+      .then((json: any) => {
+        console.log(json)
+        dispatch(fetchEnd(url, json, attr.type))
+      })
+    return res
   }
 }

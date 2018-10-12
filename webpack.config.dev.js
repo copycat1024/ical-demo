@@ -72,11 +72,8 @@ module.exports = {
     contentBase: resolve('./build'),
     hot: true,
     proxy: {
-      '/api': {
-        target: 'http://ical.cciola.site',
-        pathRewrite: {
-          '^/api': ''
-        }
+      '/frontend': {
+        target: 'http://localhost:8000',
       }
     }
   }

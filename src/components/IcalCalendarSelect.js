@@ -49,7 +49,7 @@ class IcalCalendarSelect extends Component<Props> {
     return Object.keys(opt).map<OptionType>((key) => ({
       value: key,
       label: opt[key]
-    }))
+    })).filter(item => item.label)
   }
 
   _parseValue (opt: IcalOptionsType, val: string) {

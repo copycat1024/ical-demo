@@ -11,7 +11,10 @@ import {
 
 import {
   FETCH_END,
-  FETCH_INFO
+  FETCH_INFO_GROUP,
+  FETCH_INFO_COURSE,
+  FETCH_INFO_TEACHER,
+  FETCH_INFO_ROOM
 } from '../actions/fetch'
 
 import type { IcalActionType } from './../actions'
@@ -22,79 +25,14 @@ export type IcalFilterState = {
   info: IcalInfo
 }
 
-const groupMU = {
-  '1': {
-    code: 'I-IT-1N1'
-  },
-  '2': {
-    code: 'I-IT-1N2'
-  },
-  '3': {
-    code: 'I-IT-1N3'
-  },
-  '4': {
-    code: 'I-IT-1N4'
-  }
-}
-
-const courseMU = {
-  '1': {
-    name: 'Data Network Services',
-    credit: 5,
-    language: 'en'
-  },
-  '2': {
-    name: 'Linux Operating Systems',
-    credit: 3,
-    language: 'en'
-  },
-  '3': {
-    name: 'Basics of Operating Systems',
-    credit: 4,
-    language: 'en'
-  },
-  '4': {
-    name: 'Principles of Telecommunications',
-    credit: 3,
-    language: 'en'
-  }
-}
-
-const teacherMU = {
-  '1': {
-    name: 'Gao Chao',
-    code: 'gc'
-  },
-  '2': {
-    name: 'Matila Jukka',
-    code: 'juma'
-  },
-  '3': {
-    name: 'Moghadampour Ghodrat',
-    code: 'mg'
-  }
-}
-
-const roomMU = {
-  '1': {
-    name: 'A2029'
-  },
-  '2': {
-    name: 'A2038'
-  },
-  '3': {
-    name: 'LEC1-2'
-  }
-}
-
 function IcalFilterDefault (): IcalFilterState {
   return {
     calendars: [],
     info: {
-      group: groupMU,
-      course: courseMU,
-      teacher: teacherMU,
-      room: roomMU
+      group: [],
+      course: [],
+      teacher: [],
+      room: []
     }
   }
 }
@@ -197,10 +135,48 @@ export default function (state: IcalFilterState = IcalFilterDefault(), action: I
       }
     }
     case FETCH_END: {
-      const { request, response } = action
-      console.log(FETCH_INFO)
-      console.log(request, response)
-      return state
+      const { type, data } = action.response
+      switch (type) {
+        case FETCH_INFO_GROUP: {
+          return {
+            ...state,
+            info: {
+              ...state.info,
+              group: data
+            }
+          }
+        }
+        case FETCH_INFO_COURSE: {
+          return {
+            ...state,
+            info: {
+              ...state.info,
+              course: data
+            }
+          }
+        }
+        case FETCH_INFO_TEACHER: {
+          return {
+            ...state,
+            info: {
+              ...state.info,
+              teacher: data
+            }
+          }
+        }
+        case FETCH_INFO_ROOM: {
+          return {
+            ...state,
+            info: {
+              ...state.info,
+              room: data
+            }
+          }
+        }
+        default: {
+          return state
+        }
+      }
     }
     default:
       return state
