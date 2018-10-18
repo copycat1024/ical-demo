@@ -73,7 +73,7 @@ module.exports = {
     hot: true,
     proxy: {
       '/frontend': {
-        target: 'http://localhost:8000',
+        target: 'http://10.0.0.11:8000'
       }
     }
   }

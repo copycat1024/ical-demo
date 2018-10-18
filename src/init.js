@@ -7,6 +7,7 @@ import {
   FETCH_INFO_TEACHER,
   FETCH_INFO_ROOM
 } from './actions/fetch'
+import type { Store } from 'redux'
 
 const UrlPrefix = 'http://localhost:2401/frontend/'
 const UrlPostfix = ''
@@ -38,6 +39,6 @@ function loadInfo (store) {
   })
 }
 
-export default function (store) {
+export default function (store: Store) {
   loadInfo(store)
 }

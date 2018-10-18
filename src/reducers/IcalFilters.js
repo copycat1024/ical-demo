@@ -29,10 +29,10 @@ function IcalFilterDefault (): IcalFilterState {
   return {
     calendars: [],
     info: {
-      group: [],
-      course: [],
-      teacher: [],
-      room: []
+      group: {},
+      course: {},
+      teacher: {},
+      room: {}
     }
   }
 }
