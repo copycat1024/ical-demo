@@ -39,7 +39,6 @@ export function fetchUrl (url: string, attr) {
         console.log(err)
       })
       .then((json: any) => {
-        console.log(json)
         dispatch(fetchEnd(url, json, attr.type))
       })
     return res
