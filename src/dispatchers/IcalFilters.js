@@ -44,7 +44,6 @@ export function deleteCalendar (key: number): CalendarAction {
 const defaultNewFilter = {
   type: 'empty',
   condition: 'none',
-  key: -1,
   value: ''
 }
 

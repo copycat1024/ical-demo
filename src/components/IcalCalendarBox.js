@@ -49,6 +49,7 @@ class IcalCalendarBox extends Component<Props> {
             key={key}
             onDelete={() => onDeleteFilter(key)}
             onEdit={filter => onEditFilter(key, filter)}
+            hightlight={filter.condition === 'none' ? 'error' : 'ok'}
           />
         )}
         <div

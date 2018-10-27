@@ -1,21 +1,37 @@
 // @flow
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { mapFiltersProps, mapFiltersDispatch } from '../containers/IcalGreybox'
 import '../style/ical-greybox.less'
+import type { IcalFilterState } from '../reducers/IcalFilters'
 
-type Props = {
+export type IcalGreyboxDispatch = {
+  doAction: (string, IcalFilterState) => void,
 }
 
-class IcalGreybox extends Component<Props> {
+export type IcalFiltersProps = {
+  calendars: IcalFilterState,
+  dispatch: IcalGreyboxDispatch
+}
+
+class IcalGreybox extends Component<IcalFiltersProps> {
   render () {
+    const { calendars, dispatch: { doAction } } = this.props
+
+    const styleObj = {
+      cursor: 'default'
+    }
+
     return (
       <div className='ical-greybox'>
-        <div className='ical-greybox-button text-wrap'>
-          <p>Apply</p>
-        </div>
-        { ['Google', 'Outlook'].map((text, key) =>
-          <div className='ical-greybox-button text-wrap' key={key}>
-            <p>{text}</p>
+        { ['Apply', 'Export'].map((text, key) =>
+          <div
+            className='ical-greybox-button text-wrap'
+            key={key}
+            onClick={() => { doAction(text.toLowerCase(), calendars) }}
+          >
+            <p style={styleObj}> {text} </p>
           </div>
         )}
       </div>
@@ -23,4 +39,4 @@ class IcalGreybox extends Component<Props> {
   }
 }
 
-export default IcalGreybox
+export default connect(mapFiltersProps, mapFiltersDispatch)(IcalGreybox)

@@ -76,6 +76,7 @@ class IcalCalendarHead extends Component<Props> {
               key: -1
             })
           }}
+          hightlight={item.type === 'empty' ? 'error' : 'ok'}
         />
         <IcalCalendarSelect
           posX={3}
@@ -88,6 +89,7 @@ class IcalCalendarHead extends Component<Props> {
               key: Number(value)
             })
           }}
+          hightlight={item.key.toString() === '-1' ? 'error' : 'ok'}
         />
         <div style={gotoXY(4, 1)} className='ical-calendar-delete' onClick={() => { onDelete() }}>
           <p>X</p>

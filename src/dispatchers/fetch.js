@@ -8,8 +8,9 @@ import {
 } from '../actions/fetch'
 
 import type { Dispatch } from 'redux'
+import type { FetchStartType, FetchEndType, FetchResponseType } from '../actions/fetch'
 
-function fetchStart (url) {
+function fetchStart (url): FetchStartType {
   return {
     type: FETCH_START,
     request: {
@@ -18,7 +19,7 @@ function fetchStart (url) {
   }
 }
 
-function fetchEnd (url, data, type) {
+function fetchEnd (url: string, data: any, type: FetchResponseType): FetchEndType {
   return {
     type: FETCH_END,
     request: {
@@ -31,15 +32,28 @@ function fetchEnd (url, data, type) {
   }
 }
 
-export function fetchUrl (url: string, attr) {
+export function fetchUrl (url: string, type: FetchResponseType, attr: any) {
+  let options = {
+    method: attr.method === null ? 'GET' : attr.method,
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    redirect: 'follow',
+    referrer: 'no-referrer',
+    body: JSON.stringify(attr.data === null ? {} : attr.data)
+  }
+
   return (dispatch: Dispatch) => {
     dispatch(fetchStart(url))
-    let res = fetch(url)
+    let res = fetch(url, options)
       .then(response => response.json(), err => {
         console.log(err)
       })
       .then((json: any) => {
-        dispatch(fetchEnd(url, json, attr.type))
+        dispatch(fetchEnd(url, json, type))
       })
     return res
   }

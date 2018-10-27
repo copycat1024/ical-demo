@@ -66,6 +66,7 @@ class IcalCalendarFilter extends Component<Props> {
           options={IcalItemTypeMap}
           value={filter.type}
           onEdit={value => this._onChangeType(value)}
+          hightlight={filter.type === 'empty' ? 'error' : 'ok'}
         />
         <div
           style={gotoXY(4, base)}
@@ -84,6 +85,7 @@ class IcalCalendarFilter extends Component<Props> {
           options={IcalConditionTypeMap}
           value={filter.condition}
           onEdit={value => this._onChangeCondition(value)}
+          hightlight={filter.condition === 'none' ? 'error' : 'ok'}
         />
         <div style={gotoXY(2, base + 2)} className='ical-calendar-caption'>
           <p>Text:</p>
@@ -91,7 +93,14 @@ class IcalCalendarFilter extends Component<Props> {
         <input
           type='text'
           className='ical-calendar-input'
-          style={gotoXY(3, base + 2)}
+          style={{
+            ...gotoXY(3, base + 2),
+            borderColor: filter.value === '' ? '#FF0000' : '#32CD32',
+            boxShadow: null,
+            '&:hover': {
+              borderColor: filter.value === '' ? '#8B0000' : '#008000'
+            }
+          }}
           value={filter.value}
           onChange={e => this._onChangeValue(e)}
         />

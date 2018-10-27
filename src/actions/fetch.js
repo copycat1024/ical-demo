@@ -13,8 +13,10 @@ type InfoFetchRequestType = {
   url: string
 }
 
+type FetchInfoResponseType = 'FETCH_INFO_GROUP' | 'FETCH_INFO_COURSE' | 'FETCH_INFO_TEACHER' | 'FETCH_INFO_ROOM'
+
 type InfoFetchResponseType = {
-  type: 'FETCH_INFO',
+  type: FetchInfoResponseType,
   data: IcalInfo
 }
 
@@ -24,9 +26,10 @@ export type FetchStartType = {
 }
 
 export type FetchEndType = {
-  type: 'FETCH_START' | '',
+  type: 'FETCH_END' | '',
   request: InfoFetchRequestType,
   response: InfoFetchResponseType
 }
 
 export type FetchActionType = FetchStartType | FetchEndType
+export type FetchResponseType = FetchInfoResponseType

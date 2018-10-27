@@ -16,10 +16,11 @@ type Props = {
   posY: number,
   options: IcalOptionsType,
   value: string,
+  hightlight: string,
   onEdit: (string) => void
 }
 
-const selectStyleObj = (x, y) => ({
+const selectStyleObj = (x, y, hightlight) => ({
   container: (base, state) => ({
     ...base,
     ...gotoXY(x, y),
@@ -31,25 +32,25 @@ const selectStyleObj = (x, y) => ({
     marginBottom: 0,
     marginTop: 0
   }),
-  control: (base, state) => {
-    let res = {
-      ...base,
-      minHeight: 0,
-      height: 40,
-      borderRadius: 0,
-      borderColor: 'grey',
-      boxShadow: null
+  control: (base, state) => ({
+    ...base,
+    minHeight: 0,
+    height: 40,
+    borderRadius: 0,
+    borderColor: hightlight === 'error' ? '#FF0000' : '#32CD32',
+    boxShadow: null,
+    '&:hover': {
+      borderColor: hightlight === 'error' ? '#8B0000' : '#008000'
     }
-    return res
-  }
+  })
 })
 
 class IcalCalendarSelect extends Component<Props> {
-  _parseOptions (opt: IcalOptionsType) {
-    return Object.keys(opt).map<OptionType>((key) => ({
+  _parseOptions (opt: IcalOptionsType): OptionType[] {
+    return Object.keys(opt).map((key) => ({
       value: key,
       label: opt[key]
-    })).filter<OptionType>(item => item.label !== '')
+    })).filter(item => item.label !== '')
   }
 
   _parseValue (opt: IcalOptionsType, val: string) {
@@ -60,12 +61,12 @@ class IcalCalendarSelect extends Component<Props> {
   }
 
   render () {
-    const { posX, posY, options, value, onEdit } = this.props
+    const { posX, posY, options, value, onEdit, hightlight } = this.props
     return (
       <Select
         options={this._parseOptions(options)}
         value={this._parseValue(options, value)}
-        styles={selectStyleObj(posX, posY)}
+        styles={selectStyleObj(posX, posY, hightlight)}
         onChange={(obj, action) => { onEdit(obj.value) }}
       />
     )

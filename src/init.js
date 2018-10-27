@@ -33,9 +33,7 @@ const InfoBuckets = [
 function loadInfo (store) {
   InfoBuckets.forEach(item => {
     const { key, type } = item
-    store.dispatch(fetchUrl(`${UrlPrefix}${key}${UrlPostfix}`, {
-      type: type
-    }))
+    store.dispatch(fetchUrl(`${UrlPrefix}${key}${UrlPostfix}`, type, {}))
   })
 }
 
