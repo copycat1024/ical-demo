@@ -31,7 +31,6 @@ class IcalTimetableItem extends Component<Props> {
   render () {
     const { onClick, item } = this.props
     const { course, teacher, location } = item
-    const [ teacherId, teacherName ] = teacher.split(':')
     return (
       <div
         className='ical-timetable-item text-wrap'
@@ -39,7 +38,7 @@ class IcalTimetableItem extends Component<Props> {
         onClick={() => { onClick() }}
       >
         <div className='ical-timetable-item-top' />
-        <p>{course}<br />{teacherName} ({teacherId})<br />{location}</p>
+        <p>{course}<br />{teacher}<br />{location}</p>
       </div>
     )
   }

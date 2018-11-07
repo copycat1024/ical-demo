@@ -5,6 +5,7 @@ import IcalHeader from './IcalHeader'
 import IcalBluebox from './IcalBluebox'
 import IcalRedbox from './IcalRedbox'
 import IcalGreybox from './IcalGreybox'
+import IcalPopup from './IcalPopup'
 import '../style/ical-app.less'
 
 type Props = {
@@ -18,6 +19,7 @@ class IcalApp extends Component<Props> {
         <IcalRedbox />
         <IcalBluebox />
         <IcalGreybox />
+        <IcalPopup />
       </div>
     )
   }

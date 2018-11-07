@@ -9,6 +9,7 @@ import { mapTimetableProps, mapTimetableDispatch } from './../containers/IcalTim
 import IcalTimetableItem from './IcalTimetableItem'
 import type { GotoWeekType } from './../actions/IcalTimetable'
 import type { TimetableHead } from './IcalTimetableHead'
+import type { IcalInfo } from '../helper/IcalFilters'
 import '../style/ical-timetable.less'
 
 export type IcalEvent = {
@@ -29,6 +30,7 @@ export type IcalTimetableProps = {
   dayNum: number,
   periods: IcalPeriod[],
   events: IcalEvent[],
+  info: IcalInfo,
   onWeekChange: (dest: GotoWeekType) => void
 }
 
@@ -97,6 +99,22 @@ class IcalTimetable extends Component<IcalTimetableProps> {
     }
   }
 
+  _itemToEvent (item: any, periodSlots) {
+    const { info } = this.props
+    const teacher = info.teacher[item.teacher].name
+    const course = info.course[item.course].name
+    const location = info.room[item.location].name
+    console.log(info)
+    return {
+      dateSlot: item.dateSlot,
+      teacher: teacher,
+      course: course,
+      location: location,
+      ...this._getTimeSlot(item, periodSlots),
+      dbg: [ timeToString(item.start), item.start ]
+    }
+  }
+
   _getEvents () {
     const { events, week, dayNum } = this.props
     const { periods } = this.props
@@ -109,16 +127,11 @@ class IcalTimetable extends Component<IcalTimetableProps> {
       periodSlots.end.push(timeToString(item.end))
     })
     return events.map(item => ({
-      dateSlot: dayDiff(item.start, week) + 1,
-      data: item
-    })).filter(item => (item.dateSlot > 0 && item.dateSlot < dayNum)).map(item => ({
-      dateSlot: item.dateSlot,
-      teacher: item.data.teacher,
-      course: item.data.course,
-      location: item.data.location,
-      ...this._getTimeSlot(item.data, periodSlots),
-      dbg: [ timeToString(item.data.start), item.data.start ]
+      ...item,
+      dateSlot: dayDiff(item.start, week) + 1
     }))
+      .filter(item => (item.dateSlot > 0 && item.dateSlot < dayNum))
+      .map(item => this._itemToEvent(item, periodSlots))
   }
 
   render () {

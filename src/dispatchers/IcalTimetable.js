@@ -1,3 +1,5 @@
+// @flow
+
 import { TIMETABLE_GOTO } from './../actions/IcalTimetable'
 import type { GotoWeekType, GotoWeekAction } from './../actions/IcalTimetable'
 

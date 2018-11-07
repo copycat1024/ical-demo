@@ -71,10 +71,9 @@ module.exports = {
     host: '0.0.0.0',
     contentBase: resolve('./build'),
     hot: true,
-    proxy: {
-      '/frontend': {
-        target: 'http://10.0.0.11:8000'
-      }
-    }
+    proxy: [{
+      context: ['/frontend', '/all_event'],
+      target: 'http://10.0.0.11:8000'
+    }]
   }
 }

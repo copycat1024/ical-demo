@@ -1,10 +1,11 @@
 // @flow
 
-import testData from './test'
 import { addDate, getSunday } from '../helper'
 import { TIMETABLE_GOTO } from '../actions/IcalTimetable'
-import type { IcalEvent } from './../components/IcalTimetable'
-import type { IcalActionType } from './../actions'
+import { FETCH_END, FETCH_EVENTS } from '../actions/fetch'
+
+import type { IcalEvent } from '../components/IcalTimetable'
+import type { IcalActionType } from '../actions'
 
 export type IcalTimetableState = {
   week: Date, // date of the sunday before the week
@@ -15,16 +16,20 @@ function getThisMonday () {
   return addDate(getSunday(new Date()), 1)
 }
 
+function toEvent (item) {
+  return {
+    course: item.courseid_id,
+    location: item.roomid_id,
+    teacher: item.teacherid_id,
+    start: new Date(Date.parse(item.begin)),
+    end: new Date(Date.parse(item.end))
+  }
+}
+
 function IcalTimetableDefault (): IcalTimetableState {
   return {
     week: getThisMonday(),
-    events: testData.data.map(item => ({
-      course: item.summary,
-      location: item.location,
-      teacher: item.description,
-      start: new Date(Date.parse(item.start.dateTime)),
-      end: new Date(Date.parse(item.end.dateTime))
-    }))
+    events: []
   }
 }
 
@@ -46,6 +51,26 @@ export default function (state: IcalTimetableState = IcalTimetableDefault(), act
       return {
         ...state,
         week: newWeek
+      }
+    }
+    case FETCH_END: {
+      const { type, data } = action.response
+      switch (type) {
+        case FETCH_EVENTS: {
+          let events = []
+          data.data.map(item => {
+            item.calendar.map(e => {
+              events.push(toEvent(e))
+            })
+          })
+          return {
+            ...state,
+            events: events
+          }
+        }
+        default: {
+          return state
+        }
       }
     }
     default: {

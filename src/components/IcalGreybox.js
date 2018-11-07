@@ -4,22 +4,26 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapFiltersProps, mapFiltersDispatch } from '../containers/IcalGreybox'
 import '../style/ical-greybox.less'
-import type { IcalFilterState } from '../reducers/IcalFilters'
+import type { IcalCalendar } from '../helper/IcalFilters'
 
 export type IcalGreyboxDispatch = {
-  doAction: (string, IcalFilterState) => void,
+  doAction: (string, IcalCalendar[]) => void,
 }
 
 export type IcalFiltersProps = {
-  calendars: IcalFilterState,
+  calendars: IcalCalendar[],
+  complete: boolean,
   dispatch: IcalGreyboxDispatch
 }
 
 class IcalGreybox extends Component<IcalFiltersProps> {
   render () {
-    const { calendars, dispatch: { doAction } } = this.props
+    const { calendars, complete, dispatch: { doAction } } = this.props
 
     const styleObj = {
+      backgroundColor: complete ? '#40F040' : 'white',
+      color: complete ? 'black' : 'grey',
+      borderColor: complete ? 'black' : 'grey',
       cursor: 'default'
     }
 
@@ -30,8 +34,9 @@ class IcalGreybox extends Component<IcalFiltersProps> {
             className='ical-greybox-button text-wrap'
             key={key}
             onClick={() => { doAction(text.toLowerCase(), calendars) }}
+            style={styleObj}
           >
-            <p style={styleObj}> {text} </p>
+            <p style={{ cursor: 'inherit' }}> {text} </p>
           </div>
         )}
       </div>

@@ -1,14 +1,25 @@
 // @flow
 
 import type { Dispatch } from 'redux'
-import { IcalState } from './../reducers'
-import type { IcalFilterState } from '../reducers/IcalFilters'
+import { IcalState } from '../reducers'
+// import { alertPopup } from '../dispatchers/IcalPopup'
+import { fetchUrl } from '../dispatchers/fetch'
+import { FETCH_EVENTS } from '../actions/fetch'
+import type { IcalCalendar } from '../helper/IcalFilters'
 
 function dump (obj: any) {
   console.log(JSON.stringify(obj))
 }
 
-function isComplete (calendars: IcalFilterState): boolean {
+function fetchEvents (dispatch: Dispatch, data: any) {
+  const attr = {
+    method: 'POST',
+    data: data
+  }
+  dispatch(fetchUrl('/all_event/', FETCH_EVENTS, attr))
+}
+
+function isComplete (calendars: IcalCalendar[]): boolean {
   for (let cal of calendars) {
     const { item: { type, key }, filters } = cal
     if (type === 'empty') return false
@@ -24,21 +35,19 @@ function isComplete (calendars: IcalFilterState): boolean {
 }
 
 export function mapFiltersProps (state: IcalState): any {
+  let { calendars } = state.filters
   return {
-    calendars: state.filters.calendars
+    calendars: calendars,
+    complete: isComplete(calendars)
   }
 }
 
 export function mapFiltersDispatch (dispatch: Dispatch): any {
   return {
     dispatch: {
-      doAction: (action: string, calendars: IcalFilterState) => {
+      doAction: (action: string, calendars: IcalCalendar[]) => {
         if (action === 'apply') {
-          if (isComplete(calendars)) {
-            dump(calendars)
-          } else {
-            console.log('incomplete')
-          }
+          fetchEvents(dispatch, calendars)
         } else {
           dump(calendars)
         }

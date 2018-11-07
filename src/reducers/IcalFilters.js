@@ -17,7 +17,7 @@ import {
   FETCH_INFO_ROOM
 } from '../actions/fetch'
 
-import type { IcalActionType } from './../actions'
+import type { IcalActionType } from '../actions'
 import type { IcalCalendar, IcalInfo } from '../helper/IcalFilters'
 
 export type IcalFilterState = {

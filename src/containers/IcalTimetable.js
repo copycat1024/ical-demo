@@ -26,7 +26,8 @@ export function mapTimetableProps (state: IcalState): any {
     week: week,
     dayNum: 6,
     periods: defaultPeriods,
-    events: events.sort(cmp)
+    events: events.sort(cmp),
+    info: state.filters.info
   }
 }
 
