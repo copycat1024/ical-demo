@@ -50,7 +50,10 @@ function processResponse (res) {
 
   if (status !== 200) {
     body.then(data => console.log(data))
-    throw new Error(`HTTP Error ${status}: ${statusText}`)
+    throw new Error({
+      status: status,
+      statusText: statusText
+    })
   }
   return body
 }

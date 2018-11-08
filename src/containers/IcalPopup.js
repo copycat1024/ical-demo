@@ -4,7 +4,7 @@ import type { Dispatch } from 'redux'
 import { IcalState } from './../reducers'
 import { endPopup } from '../dispatchers/IcalPopup'
 
-export function mapFiltersProps (state: IcalState): any {
+export function mapPopupProps (state: IcalState): any {
   let { show, message } = state.popup
   if (show === 'alert') {
     return {
@@ -12,9 +12,10 @@ export function mapFiltersProps (state: IcalState): any {
       content: (message != null) ? message : 'null'
     }
   }
+  return {}
 }
 
-export function mapFiltersDispatch (dispatch: Dispatch): any {
+export function mapPopupDispatch (dispatch: Dispatch): any {
   return {
     dispatch: {
       endAlert: () => {

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { mapFiltersProps, mapFiltersDispatch } from '../containers/IcalPopup'
+import { mapPopupProps, mapPopupDispatch } from '../containers/IcalPopup'
 import '../style/ical-popup.less'
 // import type { IcalFilterState } from '../reducers/IcalFilters'
 
@@ -44,4 +44,4 @@ class IcalPopup extends Component<IcalFiltersProps> {
   }
 }
 
-export default connect(mapFiltersProps, mapFiltersDispatch)(IcalPopup)
+export default connect(mapPopupProps, mapPopupDispatch)(IcalPopup)
