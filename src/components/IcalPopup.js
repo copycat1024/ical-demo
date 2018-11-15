@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapPopupProps, mapPopupDispatch } from '../containers/IcalPopup'
+import { addBr } from '../helper'
 import '../style/ical-popup.less'
 // import type { IcalFilterState } from '../reducers/IcalFilters'
 
@@ -26,7 +27,7 @@ class IcalPopup extends Component<IcalFiltersProps> {
     } else if (show === 'block') {
       return content
     } else if (show === 'alert') {
-      return content
+      return addBr(content)
     }
   }
 

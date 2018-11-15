@@ -49,10 +49,12 @@ function processResponse (res) {
   }
 
   if (status !== 200) {
-    body.then(data => console.log(data))
-    throw new Error({
-      status: status,
-      statusText: statusText
+    return body.then(data => {
+      throw new Error(JSON.stringify({
+        status: status,
+        statusText: statusText,
+        data: data
+      }))
     })
   }
   return body
@@ -75,6 +77,7 @@ export function fetchUrl (url: string, type: FetchType, attr: any) {
 
   return (dispatch: Dispatch) => {
     dispatch(fetchStart(url))
+    if (attr.data) console.log(attr.data)
     let res = fetch(url, options)
       .then(response => processResponse(response))
       .then(json => {

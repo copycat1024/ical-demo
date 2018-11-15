@@ -34,10 +34,11 @@ export default function (state: IcalPopupState = IcalPopupDefault(), action: Ica
           fetchCount: state.fetchCount - 1
         }
       } else {
+        const err = JSON.parse(data.message)
         return {
           ...state,
           show: 'alert',
-          message: data.message,
+          message: `Code: ${err.status}. Message: ${err.statusText}\nDetails: ${err.data}`,
           fetchCount: state.fetchCount - 1
         }
       }

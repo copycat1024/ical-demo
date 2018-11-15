@@ -26,7 +26,7 @@ export type IcalPeriod = {
 }
 
 export type IcalTimetableProps = {
-  week: Date, // date of the sunday before the week
+  week: Date, // date of the monday at the start the week
   dayNum: number,
   periods: IcalPeriod[],
   events: IcalEvent[],

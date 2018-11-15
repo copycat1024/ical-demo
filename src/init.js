@@ -9,7 +9,7 @@ import {
 } from './actions/fetch'
 import type { Store } from 'redux'
 
-const UrlPrefix = 'http://localhost:2401/frontend/'
+const UrlPrefix = '/frontend/'
 const UrlPostfix = ''
 const InfoBuckets = [
   {
