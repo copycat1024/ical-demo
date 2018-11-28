@@ -55,7 +55,8 @@
       "flowtype"
     ],
     "ignore": [
-      "flow-typed/*.js"
+      "flow-typed/*.js",
+      "build/*.js"
     ]
   }
 }

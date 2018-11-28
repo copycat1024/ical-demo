@@ -27,7 +27,10 @@ class IcalPopup extends Component<IcalFiltersProps> {
     } else if (show === 'block') {
       return content
     } else if (show === 'alert') {
-      return addBr(content)
+      if (content != null) {
+        return addBr(content)
+      }
+      return ''
     }
   }
 
