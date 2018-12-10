@@ -42,6 +42,14 @@ const selectStyleObj = (x, y, hightlight) => ({
     '&:hover': {
       borderColor: hightlight === 'error' ? '#8B0000' : '#008000'
     }
+  }),
+  dropdownIndicator: (base, state) => ({
+    ...base,
+    padding: 1
+  }),
+  valueContainer: (base, state) => ({
+    ...base,
+    margin: 2
   })
 })
 
@@ -68,6 +76,7 @@ class IcalCalendarSelect extends Component<Props> {
         value={this._parseValue(options, value)}
         styles={selectStyleObj(posX, posY, hightlight)}
         onChange={(obj, action) => { onEdit(obj.value) }}
+        classNamePrefix='as'
       />
     )
   }

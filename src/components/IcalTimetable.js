@@ -104,15 +104,54 @@ class IcalTimetable extends Component<IcalTimetableProps> {
     const teacher = info.teacher[item.teacher].name
     const course = info.course[item.course].name
     const location = info.room[item.location].name
-    console.log(info)
+    let timing = this._getTimeSlot(item, periodSlots)
     return {
       dateSlot: item.dateSlot,
       teacher: teacher,
       course: course,
       location: location,
-      ...this._getTimeSlot(item, periodSlots),
-      dbg: [ timeToString(item.start), item.start ]
+      ...timing
     }
+  }
+
+  _addOverlap (list) {
+    var pad = (item, order, max) => ({
+      ...item,
+      order: order,
+      max: max
+    })
+    var last = null
+    var count = 0
+    var i
+    var res = list.map(item => {
+      if (last == null) {
+        last = item
+        return pad(item, 0, 0)
+      } else {
+        let lastEnd = last.timeSlot + last.timeSpan
+        if (item.timeSlot < lastEnd) {
+          count += 1
+        } else {
+          count = 0
+        }
+        if (item.dateSlot !== last.dateSlot) count = 0
+        last = item
+        return pad(item, count, 0)
+      }
+    })
+    i = res.length - 1
+    if (i >= 0) {
+      console.log(res[i])
+      res[i].max = res[i].order
+    }
+    for (i = res.length - 2; i >= 0; i--) {
+      if (res[i + 1].order > 0) {
+        res[i].max = res[i + 1].order
+      } else {
+        res[i].max = res[i].order
+      }
+    }
+    return res
   }
 
   _getEvents () {
@@ -126,12 +165,13 @@ class IcalTimetable extends Component<IcalTimetableProps> {
       periodSlots.start.push(timeToString(item.start))
       periodSlots.end.push(timeToString(item.end))
     })
-    return events.map(item => ({
+    var eventList = events.map(item => ({
       ...item,
       dateSlot: dayDiff(item.start, week) + 1
     }))
       .filter(item => (item.dateSlot > 0 && item.dateSlot < dayNum))
       .map(item => this._itemToEvent(item, periodSlots))
+    return this._addOverlap(eventList)
   }
 
   render () {
@@ -196,7 +236,7 @@ class IcalTimetable extends Component<IcalTimetableProps> {
               <IcalTimetableItem
                 key={key}
                 item={item}
-                onClick={() => alert(JSON.stringify(item.dbg))}
+                onClick={() => alert(JSON.stringify(`${item.order}-${item.max}`))}
               />
             )}
           </div>

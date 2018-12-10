@@ -35,10 +35,14 @@ export default function (state: IcalPopupState = IcalPopupDefault(), action: Ica
         }
       } else {
         const err = JSON.parse(data.message)
+        let detail = err.data
+        if (detail !== 'string') {
+          detail = JSON.stringify(detail)
+        }
         return {
           ...state,
           show: 'alert',
-          message: `Code: ${err.status}. Message: ${err.statusText}\nDetails: ${err.data}`,
+          message: `Code: ${err.status}. Message: ${err.statusText}\nDetails: ${detail}`,
           fetchCount: state.fetchCount - 1
         }
       }

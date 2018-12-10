@@ -58,6 +58,7 @@ export default function (state: IcalTimetableState = IcalTimetableDefault(), act
       switch (type) {
         case FETCH_EVENTS: {
           let events = []
+          console.log(data)
           data.data.map(item => {
             item.calendar.map(e => {
               events.push(toEvent(e))

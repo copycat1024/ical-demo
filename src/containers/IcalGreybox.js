@@ -12,9 +12,18 @@ function dump (obj: any) {
 }
 
 function fetchEvents (dispatch: Dispatch, data: any) {
+  data = [{
+    item: {
+      type: 'teacher',
+      key: 'JUMA'
+    },
+    filters: []
+  }]
   const attr = {
     method: 'POST',
-    data: data
+    data: {
+      data: data
+    }
   }
   dispatch(fetchUrl('/all_event/', FETCH_EVENTS, attr))
 }

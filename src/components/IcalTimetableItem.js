@@ -19,8 +19,10 @@ type Props = {
 
 class IcalTimetableItem extends Component<Props> {
   _getInlineStyle () {
-    let { dateSlot, timeSlot, timeSpan } = this.props.item
+    let { dateSlot, timeSlot, timeSpan, order, max } = this.props.item
     return {
+      transform: max > 0 ? `translate(${order / max * 75}px)` : '',
+      width: max > 0 ? '50%' : '100%',
       gridRowStart: timeSlot + 1,
       gridRowEnd: timeSlot + timeSpan + 1,
       gridColumnStart: dateSlot + 1,

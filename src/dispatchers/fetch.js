@@ -77,7 +77,6 @@ export function fetchUrl (url: string, type: FetchType, attr: any) {
 
   return (dispatch: Dispatch) => {
     dispatch(fetchStart(url))
-    if (attr.data) console.log(attr.data)
     let res = fetch(url, options)
       .then(response => processResponse(response))
       .then(json => {
