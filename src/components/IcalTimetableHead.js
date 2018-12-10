@@ -50,12 +50,28 @@ class IcalTimetableHead extends Component<Props> {
     }
   }
 
-  render () {
+  _getContent () {
     let { text, headType } = this.props.item
+    if (text == null) {
+      return null
+    }
+    if (headType === 'column') {
+      let arr = text.split('\n')
+      return [
+        <p className='small'>{arr[1]}</p>,
+        <p className='big'>{arr[0]}</p>
+      ]
+    } else {
+      return <p>{addBr(text)}</p>
+    }
+  }
+
+  render () {
+    let { headType } = this.props.item
     let style = this._getInlineStyle()
     return (
       <div className={`ical-timetable-head-${headType} ical-timetable-head`} style={style}>
-        {text != null ? <p>{addBr(text)}</p> : null }
+        {this._getContent()}
       </div>
     )
   }

@@ -92,7 +92,7 @@ class IcalCalendarHead extends Component<Props> {
           hightlight={item.key.toString() === '-1' ? 'error' : 'ok'}
         />
         <div style={gotoXY(4, 1)} className='ical-calendar-delete' onClick={() => { onDelete() }}>
-          <p>X</p>
+          <p>{'\u2715'}</p>
         </div>
       </Fragment>
     )

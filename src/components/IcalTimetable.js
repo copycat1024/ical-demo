@@ -101,7 +101,7 @@ class IcalTimetable extends Component<IcalTimetableProps> {
 
   _itemToEvent (item: any, periodSlots) {
     const { info } = this.props
-    const teacher = info.teacher[item.teacher].name
+    const teacher = info.teacher[item.teacher].code.toLowerCase()
     const course = info.course[item.course].name
     const location = info.room[item.location].name
     let timing = this._getTimeSlot(item, periodSlots)
@@ -115,33 +115,25 @@ class IcalTimetable extends Component<IcalTimetableProps> {
   }
 
   _addOverlap (list) {
-    var pad = (item, order, max) => ({
+    let pad = (item, order, max) => ({
       ...item,
       order: order,
       max: max
     })
-    var last = null
-    var count = 0
-    var i
-    var res = list.map(item => {
-      if (last == null) {
-        last = item
-        return pad(item, 0, 0)
-      } else {
+    let last = null
+    let count = 0
+    let i
+    let res = list.map(item => {
+      if (last != null) {
         let lastEnd = last.timeSlot + last.timeSpan
-        if (item.timeSlot < lastEnd) {
-          count += 1
-        } else {
-          count = 0
-        }
+        count = item.timeSlot < lastEnd ? count + 1 : 0
         if (item.dateSlot !== last.dateSlot) count = 0
-        last = item
-        return pad(item, count, 0)
       }
+      last = item
+      return pad(item, count, 0)
     })
     i = res.length - 1
     if (i >= 0) {
-      console.log(res[i])
       res[i].max = res[i].order
     }
     for (i = res.length - 2; i >= 0; i--) {
@@ -155,9 +147,8 @@ class IcalTimetable extends Component<IcalTimetableProps> {
   }
 
   _getEvents () {
-    const { events, week, dayNum } = this.props
-    const { periods } = this.props
-    var periodSlots = {
+    const { events, week, dayNum, periods } = this.props
+    let periodSlots = {
       start: [],
       end: []
     }
@@ -165,7 +156,7 @@ class IcalTimetable extends Component<IcalTimetableProps> {
       periodSlots.start.push(timeToString(item.start))
       periodSlots.end.push(timeToString(item.end))
     })
-    var eventList = events.map(item => ({
+    let eventList = events.map(item => ({
       ...item,
       dateSlot: dayDiff(item.start, week) + 1
     }))

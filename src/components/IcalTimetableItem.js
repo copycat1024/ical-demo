@@ -10,6 +10,8 @@ type TimetableItem = {
   dateSlot: number,
   timeSlot: number,
   timeSpan: number,
+  max: number,
+  order: number
 }
 
 type Props = {
@@ -35,12 +37,13 @@ class IcalTimetableItem extends Component<Props> {
     const { course, teacher, location } = item
     return (
       <div
-        className='ical-timetable-item text-wrap'
+        className='ical-timetable-wrap'
         style={this._getInlineStyle()}
         onClick={() => { onClick() }}
       >
-        <div className='ical-timetable-item-top' />
-        <p>{course}<br />{teacher}<br />{location}</p>
+        <div className='ical-timetable-item' lang='en'>
+          <p><b>{course}</b><br />{location}<br />({teacher})</p>
+        </div>
       </div>
     )
   }

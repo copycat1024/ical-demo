@@ -21,10 +21,8 @@ class IcalGreybox extends Component<IcalFiltersProps> {
     const { calendars, complete, dispatch: { doAction } } = this.props
 
     const styleObj = {
-      backgroundColor: complete ? '#40F040' : 'white',
-      color: complete ? 'black' : 'grey',
-      borderColor: complete ? 'black' : 'grey',
-      cursor: 'default'
+      color: complete ? '#007e33' : 'grey',
+      borderColor: complete ? '#007e33' : 'grey'
     }
 
     return (

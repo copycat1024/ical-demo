@@ -74,7 +74,7 @@ class IcalCalendarFilter extends Component<Props> {
           value={filter.value}
           onClick={() => onDelete()}
         >
-          <p>X</p>
+          <p>{'\u2715'}</p>
         </div>
         <div style={gotoXY(2, base + 1)} className='ical-calendar-caption'>
           <p>Condition:</p>
