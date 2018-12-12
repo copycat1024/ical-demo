@@ -30,7 +30,7 @@ function getInfoOptions (info: IcalInfo, type: IcalItemType): IcalOptionsType {
       const segment = info.course
       Object.keys(segment).forEach(key => {
         const item = segment[key]
-        res[key] = `${item.name} (${item.language}, ${item.credit} cre.)`
+        res[key] = item.name
       })
       return res
     }

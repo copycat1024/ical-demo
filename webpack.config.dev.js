@@ -73,7 +73,7 @@ module.exports = {
     hot: true,
     proxy: [{
       context: ['/frontend', '/all_event'],
-      target: 'http://ical.cciola.site',
+      target: 'http://www.cciola.site',
       changeOrigin: true,
       secure: false
     }]

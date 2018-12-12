@@ -1,11 +1,13 @@
 // @flow
 
 import { GotoWeek } from '../dispatchers/IcalTimetable'
+import { tz } from 'moment-timezone'
+import { zone } from '../helper'
+import { alertPopup } from '../dispatchers/IcalPopup'
 import type { Dispatch } from 'redux'
 import type { IcalState } from './../reducers'
 import type { GotoWeekType } from './../actions/IcalTimetable'
-import { tz } from 'moment-timezone'
-import { zone } from '../helper'
+import type { TimetableItem } from '../components/IcalTimetableItem'
 
 const defaultPeriods = [
   '08:15-09:00', '09:00-09:45', '10:00-10:45', '11:00-11:45',
@@ -35,6 +37,12 @@ export function mapTimetableDispatch (dispatch: Dispatch): any {
   return {
     onWeekChange: (dest: GotoWeekType) => {
       dispatch(GotoWeek(dest))
+    },
+    onItemClick: (item: TimetableItem) => {
+      let { course, location, teacher } = item
+      let itemTxt = `${course}\n${location}\n(${teacher})`
+      console.log(item)
+      dispatch(alertPopup(itemTxt))
     }
   }
 }

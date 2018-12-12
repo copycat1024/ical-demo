@@ -28,9 +28,7 @@ export type IcalGroup = {
 }
 
 export type IcalCourse = {
-  name: string,
-  credit: number,
-  language: string
+  name: string
 }
 
 export type IcalTeacher = {

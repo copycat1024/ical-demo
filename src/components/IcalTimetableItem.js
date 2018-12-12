@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import '../style/ical-timetable-item.less'
 
-type TimetableItem = {
+export type TimetableItem = {
   course: string,
   teacher: string,
   location: string,
@@ -23,7 +23,7 @@ class IcalTimetableItem extends Component<Props> {
   _getInlineStyle () {
     let { dateSlot, timeSlot, timeSpan, order, max } = this.props.item
     return {
-      transform: max > 0 ? `translate(${order / max * 75}px)` : '',
+      transform: max > 0 ? `translate(${order / max * 100}%)` : '',
       width: max > 0 ? '50%' : '100%',
       gridRowStart: timeSlot + 1,
       gridRowEnd: timeSlot + timeSpan + 1,

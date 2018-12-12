@@ -58,8 +58,8 @@ class IcalTimetableHead extends Component<Props> {
     if (headType === 'column') {
       let arr = text.split('\n')
       return [
-        <p className='small'>{arr[1]}</p>,
-        <p className='big'>{arr[0]}</p>
+        <p className='small' key='small'>{arr[1]}</p>,
+        <p className='big' key='big'>{arr[0]}</p>
       ]
     } else {
       return <p>{addBr(text)}</p>

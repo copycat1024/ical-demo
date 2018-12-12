@@ -1,5 +1,4 @@
 // @flow
-/* global alert */
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -9,6 +8,7 @@ import { mapTimetableProps, mapTimetableDispatch } from './../containers/IcalTim
 import IcalTimetableItem from './IcalTimetableItem'
 import type { GotoWeekType } from './../actions/IcalTimetable'
 import type { TimetableHead } from './IcalTimetableHead'
+import type { TimetableItem } from './IcalTimetableItem'
 import type { IcalInfo } from '../helper/IcalFilters'
 import '../style/ical-timetable.less'
 
@@ -31,7 +31,8 @@ export type IcalTimetableProps = {
   periods: IcalPeriod[],
   events: IcalEvent[],
   info: IcalInfo,
-  onWeekChange: (dest: GotoWeekType) => void
+  onWeekChange: (dest: GotoWeekType) => void,
+  onItemClick: (item: TimetableItem) => void
 }
 
 class IcalTimetable extends Component<IcalTimetableProps> {
@@ -171,7 +172,6 @@ class IcalTimetable extends Component<IcalTimetableProps> {
     const colCount = colHeads.length
     const rowCount = rowHeads.length
 
-    const itemWidth = 150
     const itemHeight = 75
     const headWidth = 50
     const headHeight = 50
@@ -184,14 +184,13 @@ class IcalTimetable extends Component<IcalTimetableProps> {
     ]
 
     const style = {
-      width: colCount * itemWidth + headWidth,
       height: rowCount * itemHeight + headHeight,
-      gridTemplateColumns: `${headWidth}px repeat(${colCount}, ${itemWidth}px)`,
+      gridTemplateColumns: `${headWidth}px repeat(${colCount}, 1fr)`,
       gridTemplateRows: `${headHeight}px repeat(${rowCount}, ${itemHeight}px)`
     }
 
     const events = this._getEvents()
-    const { onWeekChange } = this.props
+    const { onWeekChange, onItemClick } = this.props
 
     return (
       <div className='ical-timetable'>
@@ -227,7 +226,7 @@ class IcalTimetable extends Component<IcalTimetableProps> {
               <IcalTimetableItem
                 key={key}
                 item={item}
-                onClick={() => alert(JSON.stringify(`${item.order}-${item.max}`))}
+                onClick={() => onItemClick(item)}
               />
             )}
           </div>
