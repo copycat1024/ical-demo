@@ -7,6 +7,7 @@ export type TimetableItem = {
   course: string,
   teacher: string,
   location: string,
+  group: string[],
   dateSlot: number,
   timeSlot: number,
   timeSpan: number,
@@ -34,7 +35,7 @@ class IcalTimetableItem extends Component<Props> {
 
   render () {
     const { onClick, item } = this.props
-    const { course, teacher, location } = item
+    const { course, teacher, location, group } = item
     return (
       <div
         className='ical-timetable-wrap'
@@ -43,6 +44,7 @@ class IcalTimetableItem extends Component<Props> {
       >
         <div className='ical-timetable-item' lang='en'>
           <p><b>{course}</b><br />{location}<br />({teacher})</p>
+          {group.map((item, key) => <p key={key}>{item}</p>)}
         </div>
       </div>
     )

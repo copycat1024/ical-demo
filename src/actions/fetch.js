@@ -7,11 +7,13 @@ export const FETCH_INFO_COURSE = 'FETCH_INFO_COURSE'
 export const FETCH_INFO_TEACHER = 'FETCH_INFO_TEACHER'
 export const FETCH_INFO_ROOM = 'FETCH_INFO_ROOM'
 export const FETCH_EVENTS = 'FETCH_EVENTS'
+export const FETCH_EXPORT = 'FETCH_EXPORT'
+export const FETCH_SETTING = 'FETCH_SETTING'
 export const FETCH_ERROR = 'FETCH_ERROR'
 
 type InfoFetchType = 'FETCH_INFO_GROUP' | 'FETCH_INFO_COURSE' | 'FETCH_INFO_TEACHER' | 'FETCH_INFO_ROOM'
 type EventFetchType = 'FETCH_EVENTS' | ''
-export type FetchType = InfoFetchType | EventFetchType | 'FETCH_ERROR'
+export type FetchType = InfoFetchType | EventFetchType | 'FETCH_ERROR' | 'FETCH_EXPORT' | 'FETCH_SETTING'
 
 export type FetchRequestType = {
   url: string

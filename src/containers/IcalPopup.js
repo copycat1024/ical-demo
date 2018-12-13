@@ -6,9 +6,9 @@ import { endPopup } from '../dispatchers/IcalPopup'
 
 export function mapPopupProps (state: IcalState): any {
   let { show, message } = state.popup
-  if (show === 'alert') {
+  if (show != null) {
     return {
-      show: 'alert',
+      show: show,
       content: (message != null) ? message : 'null'
     }
   }

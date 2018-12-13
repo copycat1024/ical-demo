@@ -13,11 +13,12 @@ import type { IcalInfo } from '../helper/IcalFilters'
 import '../style/ical-timetable.less'
 
 export type IcalEvent = {
-  course: string,
-  location: string,
-  teacher: string,
+  course: number,
+  location: number,
+  teacher: number,
   end: Date,
-  start: Date
+  start: Date,
+  group: number[]
 }
 
 export type IcalPeriod = {
@@ -105,11 +106,13 @@ class IcalTimetable extends Component<IcalTimetableProps> {
     const teacher = info.teacher[item.teacher].code.toLowerCase()
     const course = info.course[item.course].name
     const location = info.room[item.location].name
+    const group = item.group.map(id => info.group[id].code)
     let timing = this._getTimeSlot(item, periodSlots)
     return {
       dateSlot: item.dateSlot,
       teacher: teacher,
       course: course,
+      group: group,
       location: location,
       ...timing
     }

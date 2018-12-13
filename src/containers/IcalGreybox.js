@@ -2,23 +2,11 @@
 
 import type { Dispatch } from 'redux'
 import { IcalState } from '../reducers'
-// import { alertPopup } from '../dispatchers/IcalPopup'
 import { fetchUrl } from '../dispatchers/fetch'
-import { FETCH_EVENTS } from '../actions/fetch'
+import { FETCH_EVENTS, FETCH_EXPORT } from '../actions/fetch'
 import type { IcalCalendar } from '../helper/IcalFilters'
 
-function dump (obj: any) {
-  console.log(JSON.stringify(obj))
-}
-
-function fetchEvents (dispatch: Dispatch, data: any) {
-  data = [{
-    item: {
-      type: 'teacher',
-      key: 'JUMA'
-    },
-    filters: []
-  }]
+export function fetchEvents (dispatch: Dispatch, data: any) {
   const attr = {
     method: 'POST',
     data: {
@@ -55,10 +43,13 @@ export function mapFiltersDispatch (dispatch: Dispatch): any {
   return {
     dispatch: {
       doAction: (action: string, calendars: IcalCalendar[]) => {
-        if (action === 'apply') {
+        if (!isComplete(calendars)) {
+          return
+        }
+        if (action === 'save') {
           fetchEvents(dispatch, calendars)
-        } else {
-          dump(calendars)
+        } else if (action === 'export') {
+          dispatch(fetchUrl('/calendar_url/', FETCH_EXPORT, {}))
         }
       }
     }

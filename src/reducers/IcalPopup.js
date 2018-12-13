@@ -1,6 +1,6 @@
 // @flow
 
-import { FETCH_END, FETCH_START, FETCH_ERROR } from '../actions/fetch'
+import { FETCH_END, FETCH_START, FETCH_ERROR, FETCH_EXPORT } from '../actions/fetch'
 import { POPUP_ALERT, POPUP_END } from '../actions/IcalPopup'
 import type { IcalActionType } from './../actions'
 
@@ -28,12 +28,7 @@ export default function (state: IcalPopupState = IcalPopupDefault(), action: Ica
     }
     case FETCH_END: {
       const { type, data } = action.response
-      if (type !== FETCH_ERROR) {
-        return {
-          ...state,
-          fetchCount: state.fetchCount - 1
-        }
-      } else {
+      if (type === FETCH_ERROR) {
         const err = JSON.parse(data.message)
         let detail = err.data
         if (detail !== 'string') {
@@ -43,6 +38,22 @@ export default function (state: IcalPopupState = IcalPopupDefault(), action: Ica
           ...state,
           show: 'alert',
           message: `Code: ${err.status}. Message: ${err.statusText}\nDetails: ${detail}`,
+          fetchCount: state.fetchCount - 1
+        }
+      } else if (type === FETCH_EXPORT) {
+        let msg = {
+          ...data,
+          text: 'ICS file.'
+        }
+        return {
+          ...state,
+          show: 'link',
+          message: JSON.stringify(msg),
+          fetchCount: state.fetchCount - 1
+        }
+      } else {
+        return {
+          ...state,
           fetchCount: state.fetchCount - 1
         }
       }

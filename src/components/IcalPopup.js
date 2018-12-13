@@ -31,6 +31,14 @@ class IcalPopup extends Component<IcalFiltersProps> {
         return addBr(content)
       }
       return ''
+    } else if (show === 'link') {
+      if (content == null) {
+        return ''
+      }
+      let { url, text } = JSON.parse(content)
+      return (
+        <a href={url} target='_blank'>{text}</a>
+      )
     }
   }
 

@@ -17,12 +17,14 @@ function getThisMonday () {
 }
 
 function toEvent (item) {
+  const { group, begin, end } = item
   return {
     course: item.courseid_id,
     location: item.roomid_id,
     teacher: item.teacherid_id,
-    start: new Date(Date.parse(item.begin)),
-    end: new Date(Date.parse(item.end))
+    group: group,
+    start: new Date(Date.parse(begin)),
+    end: new Date(Date.parse(end))
   }
 }
 
@@ -58,7 +60,6 @@ export default function (state: IcalTimetableState = IcalTimetableDefault(), act
       switch (type) {
         case FETCH_EVENTS: {
           let events = []
-          console.log(data)
           data.data.map(item => {
             item.calendar.map(e => {
               events.push(toEvent(e))

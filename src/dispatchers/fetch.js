@@ -5,7 +5,8 @@ import fetch from 'cross-fetch'
 import {
   FETCH_START,
   FETCH_END,
-  FETCH_ERROR
+  FETCH_ERROR,
+  FETCH_SETTING
 } from '../actions/fetch'
 
 import type { Dispatch } from 'redux'
@@ -14,6 +15,8 @@ import type {
   FetchEndType,
   FetchType
 } from '../actions/fetch'
+
+import { fetchEvents } from '../containers/IcalGreybox'
 
 function fetchStart (url: string): FetchStartType {
   return {
@@ -68,6 +71,7 @@ export function fetchUrl (url: string, type: FetchType, attr: any) {
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
+      'X-CSRFToken': readCookie('csrftoken'),
       'Accept': 'application/json'
     },
     redirect: 'follow',
@@ -81,9 +85,23 @@ export function fetchUrl (url: string, type: FetchType, attr: any) {
       .then(response => processResponse(response))
       .then(json => {
         dispatch(fetchEnd(url, type, json))
+        if (type === FETCH_SETTING) {
+          fetchEvents(dispatch, json.data)
+        }
       }, err => {
         dispatch(fetchEnd(url, FETCH_ERROR, err))
       })
     return res
   }
+}
+
+function readCookie (name) {
+  var nameEQ = encodeURIComponent(name) + '='
+  var ca = document.cookie.split(';')
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i]
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length)
+    if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length))
+  }
+  return null
 }

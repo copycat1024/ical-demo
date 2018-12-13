@@ -14,7 +14,8 @@ import {
   FETCH_INFO_GROUP,
   FETCH_INFO_COURSE,
   FETCH_INFO_TEACHER,
-  FETCH_INFO_ROOM
+  FETCH_INFO_ROOM,
+  FETCH_SETTING
 } from '../actions/fetch'
 
 import type { IcalActionType } from '../actions'
@@ -171,6 +172,12 @@ export default function (state: IcalFilterState = IcalFilterDefault(), action: I
               ...state.info,
               room: data
             }
+          }
+        }
+        case FETCH_SETTING: {
+          return {
+            ...state,
+            calendars: data.data
           }
         }
         default: {

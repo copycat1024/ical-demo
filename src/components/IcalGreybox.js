@@ -27,7 +27,7 @@ class IcalGreybox extends Component<IcalFiltersProps> {
 
     return (
       <div className='ical-greybox'>
-        { ['Apply', 'Export'].map((text, key) =>
+        { ['Save', 'Export'].map((text, key) =>
           <div
             className='ical-greybox-button text-wrap'
             key={key}

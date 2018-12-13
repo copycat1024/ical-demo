@@ -15,7 +15,7 @@ class IcalHeader extends Component<Props> {
             <img src='/vamk.png' height='100%' />
           </div>
           <div className='ical-header-logout text-wrap'>
-            <a>Log out</a>
+            <a href='/logout'>Log out</a>
           </div>
         </div>
       </div>

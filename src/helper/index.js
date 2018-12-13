@@ -4,8 +4,8 @@ import React, { Fragment } from 'react'
 import type { Node } from 'react'
 import { tz } from 'moment-timezone'
 
-// export const zone = 'Europe/Helsinki'
-export const zone = 'Etc/GMT-3'
+export const zone = 'Europe/Helsinki'
+// export const zone = 'Etc/GMT-3'
 
 export function addBr (text: string): Node {
   return text.split('\n').map((item, key) =>

@@ -72,8 +72,8 @@ module.exports = {
     contentBase: resolve('./build'),
     hot: true,
     proxy: [{
-      context: ['/frontend', '/all_event'],
-      target: 'http://www.cciola.site',
+      context: ['/frontend', '/all_event', '/calendar_url', '/user_setting', '/ics', '/logout'],
+      target: 'http://localhost:8000',
       changeOrigin: true,
       secure: false
     }]

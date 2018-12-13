@@ -41,7 +41,6 @@ export function mapTimetableDispatch (dispatch: Dispatch): any {
     onItemClick: (item: TimetableItem) => {
       let { course, location, teacher } = item
       let itemTxt = `${course}\n${location}\n(${teacher})`
-      console.log(item)
       dispatch(alertPopup(itemTxt))
     }
   }

@@ -5,7 +5,8 @@ import {
   FETCH_INFO_GROUP,
   FETCH_INFO_COURSE,
   FETCH_INFO_TEACHER,
-  FETCH_INFO_ROOM
+  FETCH_INFO_ROOM,
+  FETCH_SETTING
 } from './actions/fetch'
 import type { Store } from 'redux'
 
@@ -35,6 +36,7 @@ function loadInfo (store) {
     const { key, type } = item
     store.dispatch(fetchUrl(`${UrlPrefix}${key}${UrlPostfix}`, type, {}))
   })
+  store.dispatch(fetchUrl('/user_setting', FETCH_SETTING, {}))
 }
 
 export default function (store: Store) {
