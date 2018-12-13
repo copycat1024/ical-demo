@@ -16,8 +16,6 @@ import type {
   FetchType
 } from '../actions/fetch'
 
-import { fetchEvents } from '../containers/IcalGreybox'
-
 function fetchStart (url: string): FetchStartType {
   return {
     type: FETCH_START,
@@ -85,9 +83,6 @@ export function fetchUrl (url: string, type: FetchType, attr: any) {
       .then(response => processResponse(response))
       .then(json => {
         dispatch(fetchEnd(url, type, json))
-        if (type === FETCH_SETTING) {
-          fetchEvents(dispatch, json.data)
-        }
       }, err => {
         if (type === FETCH_SETTING) {
           window.location.replace('/login')
