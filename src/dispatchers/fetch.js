@@ -89,6 +89,9 @@ export function fetchUrl (url: string, type: FetchType, attr: any) {
           fetchEvents(dispatch, json.data)
         }
       }, err => {
+        if (type === FETCH_SETTING) {
+          window.location.replace('/login')
+        }
         dispatch(fetchEnd(url, FETCH_ERROR, err))
       })
     return res
