@@ -1,6 +1,7 @@
 // @flow
+/* eslint-env browser */
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { mapPopupProps, mapPopupDispatch } from '../containers/IcalPopup'
 import { addBr } from '../helper'
@@ -35,9 +36,38 @@ class IcalPopup extends Component<IcalFiltersProps> {
       if (content == null) {
         return ''
       }
-      let { url, text } = JSON.parse(content)
+      const { url, text } = JSON.parse(content)
+      const { protocol, hostname } = window.location
+      const fullUrl = protocol + '//' + hostname + url
       return (
-        <a href={url} target='_blank'>{text}</a>
+        <Fragment>
+          <p>{text + ':'}</p>
+          <textarea
+            type='text'
+            id='ics-url-text'
+            value={fullUrl}
+            onChange={(e) => { console.log(e.target.value) }}
+            onClick={event => event.stopPropagation()} />
+          <br />
+          <div className='ical-popup-container'>
+            <a
+              href={url}
+              target='_blank'
+              className='ical-popup-button text-wrap'>Download</a>
+            <a
+              className='ical-popup-button text-wrap'
+              onClick={event => {
+                // nothing to see here folks, just your usual browser shenanigans
+                let ele = document.getElementById('ics-url-text')
+                // $FlowIgnore
+                ele.select()
+                // $FlowIgnore
+                ele.textContent = ele.value // firefox compatibility
+                // $FlowIgnore
+                document.execCommand('copy')
+              }} >Copy to clipboard</a>
+          </div>
+        </Fragment>
       )
     }
   }

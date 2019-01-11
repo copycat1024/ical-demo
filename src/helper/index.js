@@ -28,7 +28,7 @@ export function dateToString (d: Date): string {
 }
 
 export function timeToString (d: Date): string {
-  return tz(d, zone).format('hh:mm')
+  return tz(d, zone).format('HH:mm')
 }
 
 export function dayDiff (d1: Date, d2: Date) {
