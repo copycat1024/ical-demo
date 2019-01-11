@@ -25,6 +25,7 @@ const selectStyleObj = (x, y, hightlight) => ({
     ...base,
     ...gotoXY(x, y),
     height: 40,
+    width: 'calc(100% - 10px)',
     margin: 5
   }),
   menu: (base, state) => ({
