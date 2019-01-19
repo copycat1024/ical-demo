@@ -34,6 +34,7 @@ export default function (state: IcalPopupState = IcalPopupDefault(), action: Ica
         if (detail !== 'string') {
           detail = JSON.stringify(detail)
         }
+        console.log(err)
         return {
           ...state,
           show: 'alert',
