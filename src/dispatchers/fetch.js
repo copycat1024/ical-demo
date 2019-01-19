@@ -40,7 +40,7 @@ function fetchEnd (url: string, type: FetchType, data: any): FetchEndType {
 }
 
 function processResponse (res) {
-  const { status, statusText, headers } = res
+  const { status, statusText, headers, url } = res
   const contentType = headers.get('Content-Type').split(';')[0]
   let body
 
@@ -55,7 +55,8 @@ function processResponse (res) {
       throw new Error(JSON.stringify({
         status: status,
         statusText: statusText,
-        data: data
+        data: data,
+        url: url
       }))
     })
   }

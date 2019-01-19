@@ -38,7 +38,7 @@ export default function (state: IcalPopupState = IcalPopupDefault(), action: Ica
         return {
           ...state,
           show: 'alert',
-          message: `Code: ${err.status}. Message: ${err.statusText}\nDetails: ${detail}`,
+          message: `Code: ${err.status}. Message: ${err.statusText}\nUrl: ${err.url}\nDetails: ${detail}`,
           fetchCount: state.fetchCount - 1
         }
       } else if (type === FETCH_EXPORT) {
