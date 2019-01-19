@@ -10,8 +10,8 @@ import {
 } from './actions/fetch'
 import type { Store } from 'redux'
 
-const UrlPrefix = '/frontend/'
-const UrlPostfix = ''
+const UrlPrefix = 'mock/'
+const UrlPostfix = '.json'
 const InfoBuckets = [
   {
     key: 'group',
@@ -36,7 +36,7 @@ function loadInfo (store) {
     const { key, type } = item
     store.dispatch(fetchUrl(`${UrlPrefix}${key}${UrlPostfix}`, type, {}))
   })
-  store.dispatch(fetchUrl('/user_setting', FETCH_SETTING, {}))
+  store.dispatch(fetchUrl('mock/user.json', FETCH_SETTING, {}))
 }
 
 export default function (store: Store) {

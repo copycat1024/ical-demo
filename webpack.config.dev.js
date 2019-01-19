@@ -70,12 +70,6 @@ module.exports = {
     port: 2401,
     host: '0.0.0.0',
     contentBase: resolve('./build'),
-    hot: true,
-    proxy: [{
-      context: ['/frontend', '/all_event', '/calendar_url', '/user_setting', '/ics', '/logout'],
-      target: 'http://localhost:8000',
-      changeOrigin: true,
-      secure: false
-    }]
+    hot: true
   }
 }

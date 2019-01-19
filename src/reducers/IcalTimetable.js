@@ -13,7 +13,9 @@ export type IcalTimetableState = {
 }
 
 function getThisMonday () {
-  return addDate(getSunday(new Date()), 1)
+  // lock to the 1st of February 2019
+  return addDate(getSunday(new Date('01 Feb 2019 00:12:00 GMT')), 1)
+  // return addDate(getSunday(new Date()), 1)
 }
 
 function toEvent (item) {

@@ -51,7 +51,7 @@ class IcalPopup extends Component<IcalFiltersProps> {
           <br />
           <div className='ical-popup-container'>
             <a
-              href={url}
+              href={fullUrl}
               target='_blank'
               className='ical-popup-button text-wrap'>Download</a>
             <a

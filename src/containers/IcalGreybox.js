@@ -7,13 +7,13 @@ import { FETCH_EVENTS, FETCH_EXPORT } from '../actions/fetch'
 import type { IcalCalendar } from '../helper/IcalFilters'
 
 export function fetchEvents (dispatch: Dispatch, data: any) {
-  const attr = {
-    method: 'POST',
-    data: {
-      data: data
-    }
-  }
-  dispatch(fetchUrl('/all_event/', FETCH_EVENTS, attr))
+  // const attr = {
+  //   method: 'GET',
+  //   data: {
+  //     data: data
+  //   }
+  // }
+  dispatch(fetchUrl('mock/all_event.json', FETCH_EVENTS, {}))
 }
 
 function isComplete (calendars: IcalCalendar[]): boolean {
@@ -49,7 +49,7 @@ export function mapFiltersDispatch (dispatch: Dispatch): any {
         if (action === 'save') {
           fetchEvents(dispatch, calendars)
         } else if (action === 'export') {
-          dispatch(fetchUrl('/calendar_url/', FETCH_EXPORT, {}))
+          dispatch(fetchUrl('mock/ics.json', FETCH_EXPORT, {}))
         }
       }
     }

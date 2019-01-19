@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "item": {
+        "type": "group",
+        "key": 1
+      },
+      "filters": [
+        {
+          "condition": "equal",
+          "type": "course",
+          "value": "Network"
+        }
+      ]
+    },
+    {
+      "item": {
+        "type": "course",
+        "key": 6
+      },
+      "filters": []
+    }
+  ]
+}
