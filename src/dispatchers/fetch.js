@@ -86,7 +86,7 @@ export function fetchUrl (url: string, type: FetchType, attr: any) {
       .then(json => {
         dispatch(fetchEnd(url, type, json))
         if (type === FETCH_SETTING) {
-          dispatch(fetchUrl('/mock/all_event.json', FETCH_EVENTS, {}))
+          dispatch(fetchUrl('mock/all_event.json', FETCH_EVENTS, {}))
         }
       }, err => {
         dispatch(fetchEnd(url, FETCH_ERROR, err))
