@@ -1,9 +1,13 @@
-# Vamk_ical
+# Vamk_ical demo for frontend
 Schedule dashboard for university with Django and REST framework.
 
-**You need a running backend for make frontend work!**
+**This frontend is detached from the backend and serves the purpose of a demo only.**
 
 You also need to have npm 6 and nodejs 8 to compile and run the code.
+
+## Demo
+
+A demo can be view here: [Demo](https://copycat1024.github.io/ical-demo/)
 
 ## Installing
 
