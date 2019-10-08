@@ -7,6 +7,7 @@ You also need to have npm 6 and nodejs 8 to compile and run the code.
 
 ## Demo
 
+![Demo picture](https://raw.githubusercontent.com/copycat1024/ical-demo/master/pictures/demo.png)
 A demo can be view here: [Demo](https://copycat1024.github.io/ical-demo/)
 
 ## Installing
