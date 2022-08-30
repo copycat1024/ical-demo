@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "cross-fetch": "^2.2.3",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.35",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^5.1.1",
